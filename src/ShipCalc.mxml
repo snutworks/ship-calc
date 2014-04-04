@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   applicationComplete="handler_applicationComplete(event)">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import ru.snut.shipCalc.data.Good;
+			import ru.snut.shipCalc.data.Warehouse;
+			private function handler_applicationComplete(event:Event):void {
+				var main:Warehouse = new Warehouse('Newport');
+				main.addNeed(new Good(Good.TYPE_FISH,			492));
+				main.addNeed(new Good(Good.TYPE_BREAD,			242));
+				main.addNeed(new Good(Good.TYPE_SPECIES,		72.5));
+				main.addNeed(new Good(Good.TYPE_MEAT,			30.1));
+				main.addNeed(new Good(Good.TYPE_MILK,			588));
+				main.addNeed(new Good(Good.TYPE_CIDER,			215));
+				main.addNeed(new Good(Good.TYPE_BEER, 			72.5));
+				main.addNeed(new Good(Good.TYPE_WINE,			15.9));
+				main.addNeed(new Good(Good.TYPE_SHIRTS_1,		319));
+				main.addNeed(new Good(Good.TYPE_SHIRTS_2,		144));
+				main.addNeed(new Good(Good.TYPE_SHIRTS_3,		23));
+				main.addNeed(new Good(Good.TYPE_SHIRTS_4,		23));
+				main.addNeed(new Good(Good.TYPE_BOOKS, 			72.5));
+				main.addNeed(new Good(Good.TYPE_CANDLESTICK,	14.1));
+				
+				var needs:Vector.<Good> = main.needs;
+				needs.sort(sortOn);
+				
+				for each (var good:Good in needs) {
+					trace(good);
+				}
+			}
+			
+			private function sortOn(g1:Good, g2:Good):int { 
+				if (g1.count < g2.count) {
+					return 1;
+				} else {
+					return -1;
+				}
+			}
+		]]>
+	</fx:Script>
+	
+</s:Application>
