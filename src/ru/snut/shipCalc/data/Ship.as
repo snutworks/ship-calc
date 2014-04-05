@@ -24,7 +24,7 @@ package ru.snut.shipCalc.data {
 
 		public function Ship(capacity:uint, travelTime:uint) {
 			_capacity = capacity;
-			_time = time;
+			_time = travelTime;
 		}
 		
 		private var _capacity:uint;
@@ -47,6 +47,10 @@ package ru.snut.shipCalc.data {
 		
 		public function set goodsCount(value:uint):void {
 			_goodsCount = value;
+		}
+		
+		public function get freeSlots():uint {
+			return capacity - goodsCount;
 		}
 		
 		public function toString():String {

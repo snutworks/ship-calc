@@ -24,7 +24,7 @@ package ru.snut.shipCalc.data {
 		
 		public function Warehouse(name:String) {
 			super();
-			_name = name;
+			this.name = name;
 		}
 		
 		//--------------------------------------------------------------------------
@@ -47,11 +47,7 @@ package ru.snut.shipCalc.data {
 		//
 		//--------------------------------------------------------------------------
 		
-		private var _name:String;
-		
-		public function get name():String {
-			return _name;
-		}
+		public var name:String;
 		
 		//--------------------------------------------------------------------------
 		//

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" creationComplete="panel1_creationCompleteHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import ru.snut.shipCalc.data.Good;
+			private const _types:Array = [];
+			
+			private function panel1_creationCompleteHandler(event:FlexEvent):void{
+				_types.push(
+					{value:Good.TYPE_BEER, label:'Beer'},
+					{value:Good.TYPE_BOOKS, label:'Books'},
+					{value:Good.TYPE_BREAD, label:'Bread'},
+					{value:Good.TYPE_CANDLESTICK, label:'Candlestick'},
+					{value:Good.TYPE_CIDER, label:'Cider'},
+					{value:Good.TYPE_FISH, label:'Fish'},
+					{value:Good.TYPE_MILK, label:'Milk'},
+					{value:Good.TYPE_SHIRTS_1, label:'Shirts 1lvl'},
+					{value:Good.TYPE_SHIRTS_2, label:'Shirts 2lvl'},
+					{value:Good.TYPE_SHIRTS_3, label:'Shirts 3lvl'},
+					{value:Good.TYPE_SHIRTS_4, label:'Shirts 4lvl'},
+					{value:Good.TYPE_SPECIES, label:'Species'},
+					{value:Good.TYPE_WINE, label:'Wine'}
+				);
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Form id="form" width="200" height="200" defaultButton="{submitButton}">
+		<s:FormHeading label="headingLabel"/>
+		<s:FormItem label="Count:">
+			<s:TextInput id="count" />
+		</s:FormItem>
+		<s:FormItem label="type">
+			<s:ComboBox width="150">
+				<s:ArrayCollection source="{_types}" />
+			</s:ComboBox>
+		</s:FormItem>
+		<s:Button id="submitButton" label="Add"/>
+	</s:Form>
+	
+</s:Panel>

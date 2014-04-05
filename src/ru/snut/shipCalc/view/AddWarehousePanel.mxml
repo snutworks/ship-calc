@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" controlBarContent="{[close, addNeed, addGood]}" title="Adding warehouse">
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.managers.PopUpManager;
+			
+			import spark.events.TextOperationEvent;
+			
+			import ru.snut.shipCalc.data.Good;
+			import ru.snut.shipCalc.data.Warehouse;
+			import ru.snut.shipCalc.events.view.AddGoodPanelEvent;
+			import ru.snut.shipCalc.events.view.AddWarehousePanelEvent;
+			
+			private var _wh:Warehouse;
+			
+			private var _addGood:AddGoodPanel;
+			private var _addNeed:AddGoodPanel;
+			
+			private function handler_closeClick(event:MouseEvent):void {
+				dispatchEvent(new AddWarehousePanelEvent(AddWarehousePanelEvent.ADD, _wh));
+			}
+			
+			private function nameT_changeHandler(event:TextOperationEvent):void {
+				if (!_wh) {
+					_wh = new Warehouse(nameT.text);
+				} else {
+					_wh.name = nameT.text;
+				}
+			}
+			
+			private function handler_addNeedClick(event:MouseEvent):void {
+				_addNeed = new AddGoodPanel();
+				_addNeed.addEventListener(AddGoodPanelEvent.ADD, handler_addNeed);
+				PopUpManager.addPopUp(_addNeed, this);
+				PopUpManager.centerPopUp(_addNeed);
+			}
+			
+			private function handler_addGoodClick(event:MouseEvent):void {
+				_addGood = new AddGoodPanel();
+				_addGood.addEventListener(AddGoodPanelEvent.ADD, handler_addGood);
+				PopUpManager.addPopUp(_addGood, this);
+				PopUpManager.centerPopUp(_addGood);
+			}
+			
+			private function checkWh():Boolean {
+				if (!_wh) {
+					Alert.show('Add name for you island before adding goods', 'Warinng!');
+					return false;
+				}
+				
+				return true;
+			}
+			
+			private function handler_addNeed(event:AddGoodPanelEvent):void {
+				if (!checkWh()) return;
+				var g:Good = event.good;
+				_wh.addNeed(g);
+				PopUpManager.removePopUp(_addNeed);
+			}
+			
+			private function handler_addGood(event:AddGoodPanelEvent):void {
+				if (!checkWh()) return;
+				
+				var g:Good = event.good;
+				_wh.addStock(g);
+				PopUpManager.removePopUp(_addGood);
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:Button id="close" click="handler_closeClick(event)" label="close" />
+		<s:Button id="addNeed" click="handler_addNeedClick(event)" label="add needs" />
+		<s:Button id="addGood" click="handler_addGoodClick(event)" label="add goods" />
+	</fx:Declarations>
+	<s:FormItem label="Island title:">
+		<s:TextInput id="nameT" change="nameT_changeHandler(event)" />
+	</s:FormItem>
+</s:Panel>
